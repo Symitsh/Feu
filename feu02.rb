@@ -13,10 +13,19 @@ class FindShape
     res
   end
 
+  def gives_position(x1, x2)
+    0..(x2.size - 1).each do |i|
+      0..(x2[i].size - 1).each do |y|
+        next unless x2[i][j] == x1[0][0]
+        p x2[i][j]
+      end
+    end
+  end
+
 end
 
 # Partie 1: Gestion d'erreur
-unless ARGV.length == 2
+unless ARGV.size == 2
   puts "** error _#{(__FILE__)}_ **\nPass two data files.\nThe first is the shape to search for."
   exit
 end
