@@ -16,7 +16,10 @@ class FindShape
 end
 
 # Partie 1: Gestion d'erreur
-(puts "#{File.basename(__FILE__)}: pass rectangle data files as arguments" ; exit) unless ARGV.count == 2
+unless ARGV.length == 2
+  puts "** error _#{(__FILE__)}_ **\nPass two data files.\nThe first is the shape to search for."
+  exit
+end
 
 # Partie 2: Parsing
 def main
