@@ -1,8 +1,8 @@
 # ***** Evaluer une expression *****
-# sans utilisé eval()
+# sans utiliser: eval("4 + 21 * (1 - 2 / 2) + 38")
 class ArithmeticExpression
   def split_expression(expression) # Espace l'expression puis la met dans un tableau
-    include(expression
+    if_parenthesis_present(expression
       .gsub('(', ' ( ') # Remplace chaque référence du premier paramètre par le deuxième paramètres
       .gsub(')', ' ) ')
       .gsub('+', ' + ')
@@ -25,26 +25,31 @@ class ArithmeticExpression
               end
   end
 
-  def include(tokens) # Fait le/les calculs si une parenthèse est inclue dans l'expression
+  def if_parenthesis_present(expression) # Vérifie si une parenthèse est présente / Sinon envoie dans evaluate(expression)
+    tokens = expression
     array1 = []
     if tokens.include?('(')
-      opening_parenthesis = tokens.index('(')
-      closing_parenthesis = tokens.index(')')
-      index_parenthesis = opening_parenthesis
-      array1 << tokens[opening_parenthesis..closing_parenthesis]
-      array1.flatten!
-      tokens -= array1
-      array1.shift
-      array1.pop
-      tokens.insert(index_parenthesis, evaluate(array1))
-      tokens.flatten!
-      evaluate(tokens)
+      parenthesis(tokens, array1)
     else
       evaluate(tokens)
     end
   end
 
-  def evaluate(expression) # Evalue les priorités des signes
+  def parenthesis(tokens, array1) # Isole l'expression entre parenthèse et envoie dans evaluate(expression)
+    opening_parenthesis = tokens.index('(')
+    closing_parenthesis = tokens.index(')')
+    index_parenthesis = opening_parenthesis
+    array1 << tokens[opening_parenthesis..closing_parenthesis]
+    array1.flatten!
+    tokens -= array1
+    array1.shift
+    array1.pop
+    tokens.insert(index_parenthesis, evaluate(array1))
+    tokens.flatten!
+    evaluate(tokens)
+  end
+
+  def evaluate(expression) # Evalue les priorités des signes et fait le calcul
     tab3 = []
     expression.each do |element|
       if ['/', '*', '%'].include?(element)
@@ -81,12 +86,15 @@ class ArithmeticExpression
       end
       expression.insert(index_signe, signe) if expression.length == 2
     end
-    return expression
+    expression
   end
 end
 
 # Partie 1: Gestion d'erreur
-(puts "error arguments : #{$PROGRAM_NAME} \"Arithmetic Expression\"" ; exit) if ARGV.length != 1
+unless ARGV.length == 1
+  (puts "error arguments : #{$PROGRAM_NAME} \"Arithmetic Expression\""
+   exit)
+end
 
 # Partie 2: Parsing
 def main
