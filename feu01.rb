@@ -2,7 +2,7 @@
 # sans utilisé eval()
 class ArithmeticExpression
   def split_expression(expression) # Espace l'expression puis la met dans un tableau
-    expression
+    include(expression
       .gsub('(', ' ( ') # Remplace chaque référence du premier paramètre par le deuxième paramètres
       .gsub(')', ' ) ')
       .gsub('+', ' + ')
@@ -10,7 +10,7 @@ class ArithmeticExpression
       .gsub('*', ' * ')
       .gsub('/', ' / ')
       .gsub('%', ' % ')
-      .split(' ')
+      .split(' '))
   end
 
   def operator_eval(nb1, signe, nb2) # Selon le signe fait un calcul
@@ -42,11 +42,6 @@ class ArithmeticExpression
     else
       evaluate(tokens)
     end
-  end
-
-  def method_name(expression) # Fait un lien entre les méthodes
-    tokens = split_expression(expression)
-    include(tokens)
   end
 
   def evaluate(expression) # Evalue les priorités des signes
@@ -98,7 +93,6 @@ def main
   expression = ARGV[0]
   obj = ArithmeticExpression.new
   obj.split_expression(expression)
-  obj.method_name(expression)
 end
 
 # Partie 3: Résolution / Affichage
