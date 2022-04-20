@@ -40,7 +40,17 @@ class Sudoku
   end
 
   def check_column(sudoku, j)
-
+    array = init_array
+    i = 0
+    while i < sudoku.count
+      val = sudoku[i][j].to_i
+      if val.positive? && val < 10
+        array[val] += 1
+        return false if array[val] > 1
+      end
+      i += 1
+    end
+    true
   end
 
   def check_square(sudoku, i, j)
@@ -56,7 +66,7 @@ class Sudoku
           new_value = 1
           while new_value < 10
             sudoku[i][j] = new_value # Remplace le point par new_value
-            if check_line(sudoku, i) && check_column(sudoku, j) && check_square(sudoku, i, j)
+            if check_line(sudoku, i) && check_column(sudoku, j) #&& check_square(sudoku, i, j)
               sudoku = solve_sudoku(sudoku)
               return sudoku if sudoku != false
             end
