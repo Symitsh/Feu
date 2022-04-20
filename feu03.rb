@@ -3,9 +3,9 @@ class Sudoku
   # méthodes utilisées
   def print_sudoku(sudoku)
     i = 0
-    while (i < sudoku.count)
+    while i < sudoku.count
       j = 0
-      while (j < sudoku[i].count)
+      while j < sudoku[i].count
         print sudoku[i][j]
         j += 1
       end
@@ -14,8 +14,29 @@ class Sudoku
     end
   end
 
-  def check_line(sudoku, i)
+  def init_array
+    new_array = []
+    value = 1
+    while value < 10
+      new_array[value] = 0
+      value += 1
+    end
+    new_array
+  end
 
+  def check_line(sudoku, i)
+    array = init_array
+    j = 0
+    while j < sudoku[i].count
+      sudoku[i][j].to_i
+      val = sudoku[i][j].to_i
+      if val.positive? && val < 10
+        array[val] += 1
+        return false if array[val] > 1
+      end
+      j += 1
+    end
+    true
   end
 
   def check_column(sudoku, j)
@@ -34,12 +55,10 @@ class Sudoku
         if sudoku[i][j] == '.'
           new_value = 1
           while new_value < 10
-            sudoku[i][j] = new_value
+            sudoku[i][j] = new_value # Remplace le point par new_value
             if check_line(sudoku, i) && check_column(sudoku, j) && check_square(sudoku, i, j)
               sudoku = solve_sudoku(sudoku)
-              if sudoku != false
-                return sudoku
-              end
+              return sudoku if sudoku != false
             end
             new_value += 1
           end
@@ -49,7 +68,7 @@ class Sudoku
       end
       i += 1
     end
-    return sudoku
+    sudoku
   end
 
   def check_sudoku
@@ -62,12 +81,11 @@ class Sudoku
     end
     sudoku = solve_sudoku(sudoku)
     if sudoku == false
-      puts "error"
+      puts 'error'
     else
       print_sudoku(sudoku)
     end
   end
-
 end
 
 # Partie 1: Gestion d'erreur
@@ -86,18 +104,16 @@ end
 # Partie 3: Affichage
 puts main
 
-=begin
-
-1. Sur chaque ligne, dès qu'il y a trouve un '.' affiche un nombre compris entre 1..9
-
-2. Ce nombre X à 3 contraintes à respecté
-_ Il doit apparaître 1 fois par ligne
-_ Il doit apparaître 1 fois par colonne
-_ Il doit apparaître 1 fois par carré
-
-4. SI BON, fait une boucle de la partie 1. et 2.
-Dès qu'il y a un point met un nombre et vérifie que toutes les contraintes soient bonnes
-
-5. Arrivé à la Fin du tableau en ayant rempli tous les points.
-
-=end
+#
+# 1. Sur chaque ligne, dès qu'il y a trouve un '.' affiche un nombre compris entre 1..9
+#
+# 2. Ce nombre X à 3 contraintes à respecté
+# _ Il doit apparaître 1 fois par ligne
+# _ Il doit apparaître 1 fois par colonne
+# _ Il doit apparaître 1 fois par carré
+#
+# 4. SI BON, fait une boucle de la partie 1. et 2 de la modification
+# Dès qu'il y a un point met un nombre et vérifie que toutes les contraintes soient bonnes
+#
+# 5. Arrivé à la Fin du tableau en ayant rempli tous les points.
+#
