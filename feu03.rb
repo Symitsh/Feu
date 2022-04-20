@@ -1,22 +1,6 @@
 # ***** Sudoku *****
 class Sudoku
   # méthodes utilisées
-  def display_sudoku()
-
-  end
-
-  def absent_line()
-
-  end
-
-  def absent_column()
-
-  end
-
-  def absent_block()
-
-  end
-
   def print_sudoku(sudoku)
     i = 0
     while (i < sudoku.count)
@@ -30,6 +14,43 @@ class Sudoku
     end
   end
 
+  def check_line(sudoku, i)
+
+  end
+
+  def check_column(sudoku, j)
+
+  end
+
+  def check_square(sudoku, i, j)
+
+  end
+
+  def solve_sudoku(sudoku)
+    i = 0
+    while i < sudoku.count # i représente une ligne
+      j = 0
+      while j < sudoku[i].count # j représente une colonne
+        if sudoku[i][j] == '.'
+          new_value = 1
+          while new_value < 10
+            sudoku[i][j] = new_value
+            if check_line(sudoku, i) && check_column(sudoku, j) && check_square(sudoku, i, j)
+              sudoku = solve_sudoku(sudoku)
+              if sudoku != false
+                return sudoku
+              end
+            end
+            new_value += 1
+          end
+          return false
+        end
+        j += 1
+      end
+      i += 1
+    end
+    return sudoku
+  end
 
   def check_sudoku
     file = ARGV[0]
@@ -39,9 +60,14 @@ class Sudoku
       sudoku[position] = line.chomp.split('')
       position += 1
     end
-    sudoku = print_sudoku(sudoku)
-
+    sudoku = solve_sudoku(sudoku)
+    if sudoku == false
+      puts "error"
+    else
+      print_sudoku(sudoku)
+    end
   end
+
 end
 
 # Partie 1: Gestion d'erreur
@@ -52,8 +78,6 @@ unless ARGV.size == 1
 end
 
 # Partie 2: Parsing
-
-
 def main
   obj = Sudoku.new
   obj.check_sudoku
