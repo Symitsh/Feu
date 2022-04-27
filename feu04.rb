@@ -51,7 +51,7 @@ class MaximalSquare
     n = 1
     while n < tmp
       if x - n < 0 || y - n < 0 ||
-        check_line(plateau, x - n, y - n, n, column_number) == false
+         check_line(plateau, x - n, y - n, n, column_number) == false
         return n
       end
 
@@ -73,9 +73,18 @@ class MaximalSquare
   end
 
   def	displays_square_in_map(plateau, pos, column_number)
-
+    n = 0
+    while n < pos['size']
+      i = 0
+      while i < n + 1
+        plateau[(pos['x'] - n) + (column_number + 1) * (pos['y'] - n)] = 'o'
+        plateau[(pos['x'] - n) + i + (column_number + 1) * (pos['y'] - n)] = 'o'
+        plateau[(pos['x'] - n) + (column_number + 1) * ((pos['y'] - n) + i)] = 'o'
+        i += 1
+      end
+      n += 1
+    end
   end
-
 end
 
 # Partie 1: Gestion d'erreur
@@ -91,6 +100,8 @@ def main
   column_number = []
   plateau = obj.get_plateau(ARGV[0], column_number)
   pos = obj.get_pos_square(plateau, column_number[0])
+  obj.displays_square_in_map(plateau, pos, column_number[0])
+  plateau
 end
 
 # Partie 3: Affichage
