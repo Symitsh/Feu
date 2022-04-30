@@ -1,6 +1,6 @@
 # Programme permettant de généré un labyrinth avec en paramètre :
 # la largeur, hauteur, un char(chemin), les portes(entrée, sortie)
-# Exemple: `ruby labyrinth_generator.rb 20 20 "* o12"`
+# Exemple: ruby labyrinth_generator.rb 10 10 "* o12"
 
 def labyrinth_generator
   File.delete("labyrinth.txt")
@@ -16,7 +16,7 @@ def labyrinth_generator
         open('labyrinth.txt', 'a') {|f| f << chars[4].chr}
       elsif y == height - 1 && x == entry2
         open('labyrinth.txt', 'a') {|f| f << chars[3].chr}
-      elsif y.between?(1, height - 2) && x.between?(1, width - 2) && rand(100) > 15
+      elsif y.between?(1, height - 2) && x.between?(1, width - 2) && rand(100) > 10
         open('labyrinth.txt', 'a') {|f| f << chars[1].chr}
       else
         open('labyrinth.txt', 'a') {|f| f << chars[0].chr}
