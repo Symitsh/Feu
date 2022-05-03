@@ -4,6 +4,11 @@
 
 def labyrinth_generator
   File.delete('labyrinth.txt')
+  if ARGV.length < 3 || ARGV[2].length < 5
+    puts "params needed: height width and five characters in a string"
+    exit
+  end
+
   height = ARGV[0].to_i
   width = ARGV[1].to_i
   chars = ARGV[2]
