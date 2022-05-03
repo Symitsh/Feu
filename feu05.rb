@@ -45,7 +45,7 @@ class Labyrinth
     solved.each { |element| puts element.join('') }
   end
 
-  def adjacent_to_gates_two(coordinates) # Vérifie les cases voisine
+  def adjacent_to_gates_two(coordinates)    # Vérifie les cases voisine
     adjacents = get_adjacent_coordinates(coordinates)
     adjacents.each do |adjacent|
       if (get_element(adjacent) == ' ' || get_element(adjacent) == '2') && !(@visited.include?(adjacent) || @waiting_line.include?(adjacent))
