@@ -7,7 +7,6 @@ class MaximalSquare
     string.each_char do |c|
       string.slice!(0)
       break if c == "\n"
-
       nb += c
     end
 
@@ -51,7 +50,7 @@ class MaximalSquare
     n = 1
     while n < tmp
       if x - n < 0 || y - n < 0 ||
-         check_line(plateau, x - n, y - n, n, column_number) == false
+          check_line(plateau, x - n, y - n, n, column_number) == false
         return n
       end
 
@@ -77,7 +76,6 @@ class MaximalSquare
     while n < pos['size']
       i = 0
       while i < n + 1
-        plateau[(pos['x'] - n) + (column_number + 1) * (pos['y'] - n)] = 'o'
         plateau[(pos['x'] - n) + i + (column_number + 1) * (pos['y'] - n)] = 'o'
         plateau[(pos['x'] - n) + (column_number + 1) * ((pos['y'] - n) + i)] = 'o'
         i += 1
